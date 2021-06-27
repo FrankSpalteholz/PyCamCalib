@@ -1,0 +1,27 @@
+OpenCV routines that deal with cameras and camera calibration (including AruCo) use a pinhole camera model.
+The world origin is defined as the centre of projection of the camera model (where all light rays entering the camera converge),
+the Z axis is defined as the optical axis of the camera model, and the X and Y axes form an orthogonal system with Z.
+
++Z is in front of the camera,
++X is to the right,
++Y is down.
+
+All AruCo coordinates are defined in this coordinate system. That explains why your "camera" tvecs and rvecs change:
+they do not define your camera's position in some world coordinate system,
+but rather the markers' positions relative to your camera.
+
+You don't really need to know how the camera calibration algorithm works, other than that it will give you
+a camera matrix and some lens distortion parameters, which you use as input to other AruCo and OpenCV routines.
+
+Once you have calibration data, you can use AruCo to identify markers and return their positions and orientations in
+the 3D coordinate system defined by your camera, with correct compensation for the distortion of your camera lens.
+This is adequate to do, for example, augmented reality using OpenGL on top of the video feed from your camera.
+
+The tvec of a marker is the translation (x,y,z) of the marker from the origin; the distance unit is whatever unit
+you used to define your printed calibration chart (ie, if you described your calibration chart to OpenCV using mm,
+then the distance unit in your tvecs is mm).
+The rvec of a marker is a 3D rotation vector which defines both an axis of rotation and the rotation angle about that axis,
+and gives the marker's orientation.
+It can be converted to a 3x3 rotation matrix using the Rodrigues function (cv::Rodrigues()).
+It is either the rotation which transforms the marker's local axes onto the world (camera) axes, or the inverse --
+I can't remember, but you can easily check.
