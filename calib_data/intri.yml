@@ -1,0 +1,37 @@
+%YAML:1.0
+---
+names:
+   - "1"
+   - "2"
+K_1: !!opencv-matrix
+    rows: 3
+    cols: 3
+    dt: d
+    data: [ 2000.0, 0.0, 
+        2016.0, 0.0, 
+        2000.0, 1512.0, 
+        0.0, 0.0, 
+        1.0 ]
+dist_1: !!opencv-matrix
+    rows: 5
+    cols: 1
+    dt: d
+    data: [ 0., 0., 
+        0., 0., 
+        0. ]
+K_2: !!opencv-matrix
+    rows: 3
+    cols: 3
+    dt: d
+    data: [ 2000.0, 2.0, 
+        2016.0, 0.0, 
+        2000.0, 1512.0, 
+        2.0, 2.0, 
+        2.0 ]
+dist_2: !!opencv-matrix
+    rows: 5
+    cols: 1
+    dt: d
+    data: [ 2., 2., 
+        2., 2., 
+        2. ]
