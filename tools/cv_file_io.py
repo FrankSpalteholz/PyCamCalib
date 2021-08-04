@@ -57,8 +57,8 @@ class cv_file_io:
             print("========================================================================")
             print("[Intrinsics: " + file_path + "]\n")
             print("[Image width/ height: " + str(fn_dim))
-            print("[K Coeffs: " + str(fn_camera_mat))
-            print("[Dist Coeffs: " + str(fn_dist_coeffs))
+            print("[" + camera_matrix_name + ": " + str(fn_camera_mat))
+            print("[" + dist_coeffs_name + ": " + str(fn_dist_coeffs))
 
         return fn_dim, fn_camera_mat, fn_dist_coeffs
 
@@ -109,7 +109,7 @@ class cv_file_io:
 
         for i in range(len(intri_list)):
             # write K
-            file1.write(intri_ids[2] + "_" + str(i+1) + self.cv_matrix_header)
+            file1.write(intri_ids[3] + "_" + str(i+1) + self.cv_matrix_header)
             file1.write("    " + self.cv_matrix_ids[0] + "3\n")
             file1.write("    " + self.cv_matrix_ids[1] + "3\n")
             file1.write("    " + self.cv_matrix_ids[2] + "d\n")
@@ -121,16 +121,14 @@ class cv_file_io:
                         "        " + str(intri_list[i][1][2][2]) + " ]\n")
 
             # write dist
-            file1.write(intri_ids[3] + "_" + str(i+1) + self.cv_matrix_header)
+            file1.write(intri_ids[4] + "_" + str(i+1) + self.cv_matrix_header)
             file1.write("    " + self.cv_matrix_ids[0] + "5\n")
             file1.write("    " + self.cv_matrix_ids[1] + "1\n")
             file1.write("    " + self.cv_matrix_ids[2] + "d\n")
-            file1.write("    " + self.cv_matrix_ids[3] + "[ " +
-                        str(intri_list[i][2][0]).replace("[", "").replace("]", "") + ", " +
-                        str(intri_list[i][2][1]).replace("[", "").replace("]", "") + ", " + "\n" +
-                        "        " + str(intri_list[i][2][2]).replace("[", "").replace("]", "") + ", " +
-                        str(intri_list[i][2][3]).replace("[", "").replace("]", "") + ", " + "\n" +
-                        "        " + str(intri_list[i][2][4]).replace("[", "").replace("]", "") + " ]\n")
+            file1.write("    " + self.cv_matrix_ids[3] + "[ ")
+            file1.write(str(intri_list[i][2][0][0]) + ", " + str(intri_list[i][2][0][1]) + ", \n" +
+                        "        " + str(intri_list[i][2][0][2]) + ", " + str(intri_list[i][2][0][3]) + ",  \n" +
+                        "        " + str(intri_list[i][2][0][1]) + " ]\n")
 
         file1.close()
 
