@@ -35,7 +35,7 @@ def rotation_matrix_to_euler_angles(R, det_thresh) :
 def output_extrinsics(tvec, rvec, rot_mat, det_thresh, matrix_coeffs, dist_coeffs, image_path, index):
 
     frame = cv2.imread(image_path)
-    draw_axis_length = 0.1
+    draw_axis_length = 0.25
 
     print("========================================================================")
     print("[Calc extrinsics camera: " + str(index+1) + "]\n")
@@ -80,7 +80,7 @@ def calc_extrinsics_from_markers(image_path, matrix_coeffs, dist_coeffs, marker_
                                           cameraMatrix=matrix_coeffs,
                                           distCoeff=dist_coeffs)
 
-    # aruco.drawDetectedMarkers(frame, corners, ids)
+    #aruco.drawDetectedMarkers(frame, corners, ids)
 
     for i in range(marker_num):
         rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners[i],
@@ -111,12 +111,12 @@ def main():
 
     calib_image_name = "calib_image"
     calib_image_extension = ".png"
-    calib_image_id = 4
+    calib_image_id = 2
     marker_length = 0.2  # in meters
     marker_num = 4
     rot_mat_det_thresh = 1.0
 
-    output_debug = False
+    output_debug = True
 
     cv_file = cv_file_io(root_dir)
     cv_file.print_path()
